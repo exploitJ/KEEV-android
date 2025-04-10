@@ -1,0 +1,47 @@
+.gradle
+/local.properties
+
+*.iml
+.idea/*
+!.idea/copyright
+!/.idea/codeStyles
+
+/.idea/codeStyles/*
+!/.idea/codeStyles/Project.xml
+!/.idea/codeStyles/codeStyleConfig.xml
+!/.idea/codeInsightSettings.xml
+
+.DS_Store
+build/
+captures/
+.externalNativeBuild
+.cxx
+local.properties
+
+*.log
+
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
+
+# Sandbox stuff
+_sandbox
+
+# Kotlin
+.kotlin
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Android Profiling
+*.hprof
+
+### Android Patch ###
+gen-external-apklibs
+
+# End of https://www.toptal.com/developers/gitignore/api/android
