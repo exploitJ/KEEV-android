@@ -30,7 +30,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -45,6 +45,7 @@ android {
 room {
     schemaDirectory("$projectDir/schemas")
 }
+
 hilt {
     enableAggregatingTask = true
 }
