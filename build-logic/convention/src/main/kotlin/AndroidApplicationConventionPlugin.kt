@@ -1,32 +1,19 @@
-/*
- * Copyright 2022 The Android Open Source Project
- *
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the License at
- *
- *       https://www.apache.org/licenses/LICENSE-2.0
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
-import com.android.build.gradle.BaseExtension
 import com.hmhz.keev.alias
-import com.hmhz.keev.configureAndroidCompose
 import com.hmhz.keev.configureGradleManagedDevices
 import com.hmhz.keev.configureKotlinAndroid
+import com.hmhz.keev.configurePrintApksTask
 import com.hmhz.keev.libs
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.tasks.UsesKotlinJavaToolchain
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -35,14 +22,20 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 alias(libs.plugins.android.application)
                 alias(libs.plugins.kotlin.android)
             }
-            apply(plugin = "nowinandroid.android.lint")
-            apply(plugin = "com.dropbox.dependency-guard")
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 35
+                defaultConfig.targetSdk = libs.versions.targetSdk.get().toInt()
                 testOptions.animationsDisabled = true
                 configureGradleManagedDevices(this)
+            }
+
+            val launcher = extensions.getByType<JavaToolchainService>().launcherFor {
+                languageVersion.set(JavaLanguageVersion.of(21))
+            }
+
+            tasks.withType<UsesKotlinJavaToolchain>().configureEach {
+                kotlinJavaToolchain.toolchain.use(launcher)
             }
 
             extensions.configure<ApplicationAndroidComponentsExtension> {
