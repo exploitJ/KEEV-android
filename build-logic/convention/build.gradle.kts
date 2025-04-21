@@ -1,3 +1,5 @@
+import org.gradle.initialization.DependenciesAccessors
+import org.gradle.kotlin.dsl.support.serviceOf
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -21,6 +23,11 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
+
+    val dependenciesAccessors = gradle.serviceOf<DependenciesAccessors>().classes.asFiles
+    for (it in dependenciesAccessors) {
+        compileOnly(files(it.absolutePath))
+    }
 }
 
 
