@@ -1,37 +1,53 @@
+import com.hmhz.keev.KeevBuildType
+import org.jetbrains.kotlin.konan.file.File
+import org.jetbrains.kotlin.konan.properties.loadProperties
+
 plugins {
     alias(libs.plugins.keev.android.application)
     alias(libs.plugins.keev.android.application.compose)
     alias(libs.plugins.keev.android.application.flavors)
-    alias(libs.plugins.room)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.keev.android.room)
+    alias(libs.plugins.keev.hilt)
 }
+
+val keystoreProperties = File(
+    rootProject.file("keystore.properties").toPath(),
+).loadProperties()
 
 android {
     namespace = "com.hmhz.keev"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    buildToolsVersion = libs.versions.buildTools.get()
 
     defaultConfig {
         applicationId = "com.hmhz.keev"
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
+    signingConfigs {
+        create("production") {
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
         }
     }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix = KeevBuildType.DEBUG.applicationIdSuffix
+        }
+        release {
+            applicationIdSuffix = KeevBuildType.RELEASE.applicationIdSuffix
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
+
+            signingConfig = signingConfigs.named("production").get()
+        }
+    }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
@@ -40,22 +56,7 @@ android {
     }
 }
 
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-
-hilt {
-    enableAggregatingTask = true
-}
-
-kotlin {
-    jvmToolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
 dependencies {
-    coreLibraryDesugaring(libs.desugarJdkLibs)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)

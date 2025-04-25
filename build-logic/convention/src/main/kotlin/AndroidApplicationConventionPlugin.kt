@@ -30,14 +30,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 configureGradleManagedDevices(this)
             }
 
-            val launcher = extensions.getByType<JavaToolchainService>().launcherFor {
-                languageVersion.set(JavaLanguageVersion.of(21))
-            }
-
-            tasks.withType<UsesKotlinJavaToolchain>().configureEach {
-                kotlinJavaToolchain.toolchain.use(launcher)
-            }
-
             extensions.configure<ApplicationAndroidComponentsExtension> {
                 configurePrintApksTask(this)
             }

@@ -1,18 +1,18 @@
 package com.hmhz.keev
 
 import com.android.build.api.dsl.CommonExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPlatformExtension
-import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-import org.jetbrains.kotlin.gradle.plugin.kotlinToolingVersion
+import org.jetbrains.kotlin.gradle.tasks.UsesKotlinJavaToolchain
 
 /**
  * Configure base Kotlin with Android options
@@ -22,6 +22,7 @@ internal fun Project.configureKotlinAndroid(
 ) {
     commonExtension.apply {
         compileSdk = libs.versions.compileSdk.get().toInt()
+        buildToolsVersion = libs.versions.buildTools.get()
 
         defaultConfig {
             minSdk = libs.versions.minSdk.get().toInt()
@@ -51,11 +52,20 @@ internal fun Project.configureKotlinJvm() {
  * Configure base Kotlin options
  */
 private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() = configure<T> {
+    val launcher = extensions.getByType<JavaToolchainService>().launcherFor {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+
+    tasks.withType<UsesKotlinJavaToolchain>().configureEach {
+        kotlinJavaToolchain.toolchain.use(launcher)
+    }
+
     // Treat all Kotlin warnings as errors (disabled by default)
     // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
     val warningsAsErrors = providers.gradleProperty("warningsAsErrors").map {
         it.toBoolean()
     }.orElse(false)
+
     when (this) {
         is KotlinAndroidProjectExtension -> compilerOptions
         is KotlinJvmProjectExtension -> compilerOptions
