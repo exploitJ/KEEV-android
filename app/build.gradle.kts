@@ -1,9 +1,7 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.keev.android.application)
+    alias(libs.plugins.keev.android.application.compose)
+    alias(libs.plugins.keev.android.application.flavors)
     alias(libs.plugins.room)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
@@ -68,10 +66,10 @@ dependencies {
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.compiler.androidx)
 
-    androidTestImplementation(libs.hilt.android.testing)
+    androidTestImplementation(libs.hilt.testing)
     kspAndroidTest(libs.hilt.compiler)
 
-    testImplementation(libs.hilt.android.testing)
+    testImplementation(libs.hilt.testing)
     kspTest(libs.hilt.compiler)
 
     implementation(libs.androidx.core)

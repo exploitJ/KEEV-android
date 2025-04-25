@@ -50,6 +50,10 @@ gradlePlugin {
             id = libs.plugins.keev.android.application.firebase.get().pluginId
             implementationClass = "AndroidApplicationFirebaseConventionPlugin"
         }
+        register("androidFlavors") {
+            id = libs.plugins.keev.android.application.flavors.get().pluginId
+            implementationClass = "AndroidApplicationFlavorsConventionPlugin"
+        }
         register("androidLibrary") {
             id = libs.plugins.keev.android.library.asProvider().get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
