@@ -1,6 +1,5 @@
 import org.gradle.initialization.DependenciesAccessors
 import org.gradle.kotlin.dsl.support.serviceOf
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     `kotlin-dsl`
@@ -9,9 +8,7 @@ plugins {
 group = "com.hmhz.keev.build-logic"
 
 kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_21
-    }
+    jvmToolchain(21)
 }
 
 dependencies {

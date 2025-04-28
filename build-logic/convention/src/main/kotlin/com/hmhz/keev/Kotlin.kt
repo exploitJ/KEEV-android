@@ -2,17 +2,12 @@ package com.hmhz.keev
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
-import org.gradle.jvm.toolchain.JavaLanguageVersion
-import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-import org.jetbrains.kotlin.gradle.tasks.UsesKotlinJavaToolchain
 
 /**
  * Configure base Kotlin with Android options
@@ -52,30 +47,20 @@ internal fun Project.configureKotlinJvm() {
  * Configure base Kotlin options
  */
 private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() = configure<T> {
-    val launcher = extensions.getByType<JavaToolchainService>().launcherFor {
-        languageVersion.set(JavaLanguageVersion.of(21))
-    }
-
-    tasks.withType<UsesKotlinJavaToolchain>().configureEach {
-        kotlinJavaToolchain.toolchain.use(launcher)
-    }
-
     // Treat all Kotlin warnings as errors (disabled by default)
     // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
     val warningsAsErrors = providers.gradleProperty("warningsAsErrors").map {
         it.toBoolean()
     }.orElse(false)
 
+    jvmToolchain(21)
     when (this) {
         is KotlinAndroidProjectExtension -> compilerOptions
         is KotlinJvmProjectExtension -> compilerOptions
         else -> TODO("Unsupported project extension $this ${T::class}")
     }.apply {
+        optIn.add("kotlinx.coroutines.ExperimentalCoroutinesApi")
         allWarningsAsErrors = warningsAsErrors
-        freeCompilerArgs.add(
-            // Enable experimental coroutines APIs, including Flow
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-        )
         freeCompilerArgs.add(
             /**
              * Remove this args after Phase 3.

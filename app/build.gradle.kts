@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.keev.android.application)
     alias(libs.plugins.keev.android.application.compose)
     alias(libs.plugins.keev.android.application.flavors)
-    alias(libs.plugins.keev.android.room)
     alias(libs.plugins.keev.hilt)
 }
 
@@ -47,44 +46,19 @@ android {
             signingConfig = signingConfigs.named("production").get()
         }
     }
-
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
-    val composeBom = platform(libs.androidx.compose.bom)
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
-
-    implementation(libs.hilt)
-    implementation(libs.hilt.navigation.compose)
-    implementation(libs.hilt.work)
-    ksp(libs.hilt.compiler)
-    ksp(libs.hilt.compiler.androidx)
-
-    androidTestImplementation(libs.hilt.testing)
-    kspAndroidTest(libs.hilt.compiler)
-
-    testImplementation(libs.hilt.testing)
-    kspTest(libs.hilt.compiler)
-
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso)
     androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    ksp(libs.androidx.room.compiler)
 }

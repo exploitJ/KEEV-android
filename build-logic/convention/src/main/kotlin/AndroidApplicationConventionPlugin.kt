@@ -5,15 +5,9 @@ import com.hmhz.keev.configureGradleManagedDevices
 import com.hmhz.keev.configureKotlinAndroid
 import com.hmhz.keev.configurePrintApksTask
 import com.hmhz.keev.libs
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.jvm.toolchain.JavaLanguageVersion
-import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByType
-import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.tasks.UsesKotlinJavaToolchain
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
