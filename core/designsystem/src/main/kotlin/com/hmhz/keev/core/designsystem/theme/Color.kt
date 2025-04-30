@@ -1,4 +1,4 @@
-package com.hmhz.keev.ui.theme
+package com.hmhz.keev.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

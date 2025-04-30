@@ -21,9 +21,12 @@ dependencyResolutionManagement {
     }
 }
 
+require(JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_21))
+
 rootProject.name = "KEEV"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-
-require(JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_21))
+include(":core:designsystem")
+include(":core:model")
+include(":core:domain")
