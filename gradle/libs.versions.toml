@@ -8,7 +8,7 @@ targetSdk = "36"
 buildTools = "36.0.0"
 
 kotlin = "2.1.20"
-ksp = "2.1.20-2.0.0"
+ksp = "2.1.20-2.0.1"
 agp = "8.10.0-rc04"
 androidTools = "31.9.2"
 
@@ -102,6 +102,8 @@ androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-kt
 androidx-material3 = { module = "androidx.compose.material3:material3" }
 androidx-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-ui = { module = "androidx.compose.ui:ui" }
+androidx-ui-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-ui-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
