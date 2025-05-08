@@ -10,6 +10,9 @@ import androidx.compose.ui.unit.sp
 import com.hmhz.keev.core.designsystem.R
 
 private val PretendardFontFamily = FontFamily(
+    Font(R.font.pretendard_thin, FontWeight.Thin),
+    Font(R.font.pretendard_extralight, FontWeight.ExtraLight),
+    Font(R.font.pretendard_light, FontWeight.Light),
     Font(R.font.pretendard_regular, FontWeight.Normal),
     Font(R.font.pretendard_medium, FontWeight.Medium),
     Font(R.font.pretendard_semibold, FontWeight.SemiBold),
