@@ -1,10 +1,17 @@
 package com.hmhz.keev.core.designsystem.theme
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.*
+import com.hmhz.keev.core.designsystem.theme.AppColors.BrandColor50
+import com.hmhz.keev.core.designsystem.theme.AppColors.BrandColor500
+import com.hmhz.keev.core.designsystem.theme.AppColors.BrandColor500a20
+import com.hmhz.keev.core.designsystem.theme.AppColors.BrandColor500a50
+import com.hmhz.keev.core.designsystem.theme.AppColors.Gray300
+import com.hmhz.keev.core.designsystem.theme.AppColors.Gray50
+import com.hmhz.keev.core.designsystem.theme.AppColors.Gray700
+import com.hmhz.keev.core.designsystem.theme.AppColors.Gray800
+import com.hmhz.keev.core.designsystem.theme.AppColors.Gray900
 
 private val DarkColorScheme = darkColorScheme(
     primary = BrandColor500,
@@ -28,13 +35,13 @@ private val DarkColorScheme = darkColorScheme(
     surfaceTint = BrandColor500,
     inverseSurface = Gray50,
     inverseOnSurface = Gray900,
-    error = Error,
+    error = AppColors.Error,
     onError = Gray50,
-    errorContainer = Error.copy(alpha = 0.2f),
-    onErrorContainer = Error,
+    errorContainer = AppColors.Error.copy(alpha = 0.2f),
+    onErrorContainer = AppColors.Error,
     outline = Gray700,
     outlineVariant = Gray800,
-    scrim = Gray900.copy(alpha = 0.5f)
+    scrim = Gray900.copy(alpha = 0.5f),
 )
 
 @Composable

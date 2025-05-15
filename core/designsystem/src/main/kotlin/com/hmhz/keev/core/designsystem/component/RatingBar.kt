@@ -42,8 +42,8 @@ fun RatingBar(
     itemSize: DpSize,
     itemSpacing: Dp = 4.dp,
     edgePadding: Dp = 4.dp,
-    activeColor: Color = AppColors.surfacePrimary,
-    inactiveColor: Color = AppColors.stateDisabled,
+    activeColor: Color = AppColors.BrandColor500,
+    inactiveColor: Color = AppColors.Gray700,
     onRatingChanged: (Float) -> Unit = {},
 ) {
     var rating by rememberSaveable {
@@ -75,7 +75,7 @@ fun RatingBar(
     val haptics = LocalHapticFeedback.current
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = edgePadding)
             .width(totalWidth)
             .height(itemSize.height)
@@ -153,8 +153,6 @@ fun RatingBarDemo() {
                 startRating = currentRating,
                 itemSize = DpSize(50.dp, 48.dp),
                 itemSpacing = 20.dp,
-                activeColor = Color.Yellow,
-                inactiveColor = Color.Gray,
                 onRatingChanged = { newRating ->
                     currentRating = newRating
                 },
