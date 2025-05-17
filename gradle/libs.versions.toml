@@ -1,6 +1,6 @@
 [versions]
-coilBom = "3.1.0"
-composeBom = "2025.04.01"
+coilBom = "3.2.0-rc02"
+composeBom = "2025.05.00"
 
 minSdk = "26"
 compileSdk = "36"
@@ -8,9 +8,9 @@ targetSdk = "36"
 buildTools = "36.0.0"
 
 kotlin = "2.1.21"
-ksp = "2.1.20-2.0.0"
-agp = "8.10.0-rc04"
-androidTools = "31.9.2"
+ksp = "2.1.20-2.0.1"
+agp = "8.10.0"
+androidTools = "31.10.0"
 
 dependencyVersions = "0.52.0"
 desugarJdk = "2.1.5"
@@ -29,15 +29,15 @@ graphicsShapes = "1.0.1"
 core = "1.16.0"
 coreSplashscreen = "1.1.0-rc01"
 activity = "1.11.0-rc01"
-navigation = "2.8.9"
-lifecycle = "2.9.0-rc01"
+navigation = "2.9.0"
+lifecycle = "2.9.0"
 hilt = "2.56.2"
 hiltExtension = "1.2.0"
-datastorePreferences = "1.1.5"
+datastorePreferences = "1.1.6"
 datetime = "0.6.2"
 serialization = "1.8.1"
 coroutines = "1.10.2"
-ktor = "3.1.2"
+ktor = "3.1.3"
 startup = "1.2.0"
 work = "2.10.1"
 room = "2.7.1"
@@ -102,6 +102,8 @@ androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-kt
 androidx-material3 = { module = "androidx.compose.material3:material3" }
 androidx-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-ui = { module = "androidx.compose.ui:ui" }
+androidx-ui-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-ui-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
